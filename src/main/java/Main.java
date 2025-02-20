@@ -19,13 +19,13 @@ public class Main {
         String pathCentroids = "centroids.txt";
         while (!isConverged && currentIteration < MAX_ITERATION_VALUE) {
             String currentPathOutput = "output" + currentIteration;
-            boolean isSuccess = KMeansClass.compute(pathInput, currentPathOutput);
+            boolean isSuccess = KMean.computeKMean(pathInput, currentPathOutput, pathCentroids);
             if (!isSuccess) {
                 System.out.println("Job Failed");
                 System.exit(1);
             }
             isConverged = isConvergenceReached(pathCentroids, currentPathOutput + "/part-r-00000");
-            pathCentroids = currentPathOutput + "path-r-00000";
+            pathCentroids = currentPathOutput + "/part-r-00000";
             currentIteration++;
         }
         System.out.println("Final Result:");
@@ -66,7 +66,7 @@ public class Main {
         for (int i = 0; i < pointCountInput; i++) {
             double currentXValue = rand.nextDouble() * rangeInput;
             double currentYValue = rand.nextDouble() * rangeInput;
-            fw.write(currentXValue + " " + currentYValue + "\n");
+            fw.write(currentXValue + "," + currentYValue + "\n");
         }
         fw.close();
 
